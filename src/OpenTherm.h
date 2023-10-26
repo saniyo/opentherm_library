@@ -114,7 +114,6 @@ class OpenTherm
 {
 public:
 	OpenTherm(int inPin = 4, int outPin = 5, bool isSlave = false);
-	volatile OpenThermStatus status;
 	void begin(void(*handleInterruptCallback)(void));
 	void begin(void(*handleInterruptCallback)(void), void(*processResponseCallback)(unsigned long, OpenThermResponseStatus));
 	bool isReady();
@@ -169,6 +168,7 @@ private:
 	const int outPin;
 	const bool isSlave;
 
+	volatile OpenThermStatus status;
 	volatile unsigned long response;
 	volatile OpenThermResponseStatus responseStatus;
 	volatile unsigned long responseTimestamp;
