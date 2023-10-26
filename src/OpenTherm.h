@@ -117,6 +117,7 @@ public:
 	void begin(void(*handleInterruptCallback)(void));
 	void begin(void(*handleInterruptCallback)(void), void(*processResponseCallback)(unsigned long, OpenThermResponseStatus));
 	bool isReady();
+	volatile OpenThermStatus status;
 	unsigned long sendRequest(unsigned long request);
 	bool sendResponse(unsigned long request);
 	bool sendRequestAync(unsigned long request);
@@ -168,7 +169,6 @@ private:
 	const int outPin;
 	const bool isSlave;
 
-	volatile OpenThermStatus status;
 	volatile unsigned long response;
 	volatile OpenThermResponseStatus responseStatus;
 	volatile unsigned long responseTimestamp;
