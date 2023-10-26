@@ -110,6 +110,67 @@ enum OpenThermStatus {
 	RESPONSE_INVALID
 };
 
+enum MasterSlaveStatusEnum { 
+	MasterCHenable, // [ clear/0, set/1] [ CH is disabled, CH is enabled]
+	MasterDHWenable, // [ DHW is disabled, DHW is enabled]
+	MasterCoolingenable, // [ Cooling is disabled, Cooling is enabled]
+	MasterOTCactive, // [OTC not active, OTC is active]
+	MasterCH2enable, // [CH2 is disabled, CH2 is enabled]
+	MasterReserved5, 
+	MasterReserved6, 
+	MasterReserved7, 
+	SlaveFaultIndication,	// [ no fault, fault ]
+	SlaveCHmode,	// [CH not active, CH active]
+	SlaveDHWmode, // [ DHW not active, DHW active]
+	SlaveFlameStatus, // [ flame off, flame on ]
+	SlaveCoolingStatus, // [ cooling mode not active, cooling mode active ]
+	SlaveCH2mode, // [CH2 not active, CH2 active]
+	SlaveDiagnosticIndication, // [no diagnostics, diagnostic event]
+	SlaveReserved
+}
+
+struct MasterSlaveStatus {
+	bool MasterCHenable = false; // [ clear/0, set/1] [ CH is disabled, CH is enabled]
+	bool MasterDHWenable = false; // [ DHW is disabled, DHW is enabled]
+	bool MasterCoolingenable = false; // [ Cooling is disabled, Cooling is enabled]
+	bool MasterOTCactive = false; // [OTC not active, OTC is active]
+	bool MasterCH2enable = false; // [CH2 is disabled, CH2 is enabled]
+	bool MasterReserved5 = false; 
+	bool MasterReserved6 = false; 
+	bool MasterReserved7 = false; 
+	bool SlaveFaultIndication = false;	// [ no fault, fault ]
+	bool SlaveCHmode = false; // [CH not active, CH active]
+	bool SlaveDHWmode = false; // [ DHW not active, DHW active]
+	bool SlaveFlameStatus = false; // [ flame off, flame on ]
+	bool SlaveCoolingStatus = false; // [ cooling mode not active, cooling mode active ]
+	bool SlaveCH2mode = false; // [CH2 not active, CH2 active]
+	bool SlaveDiagnosticIndication = false; // [no diagnostics, diagnostic event]
+	bool SlaveReserved = false;
+}
+
+enum AplicationSpecificFaultsEnum {
+	ServiceRequest, // [ clear/0, set/1] [service not req’d, service required]
+	StaLockoutReset, // [ remote reset disabled, rr enabled]
+	LowWaterPress, // [no WP fault, water pressure fault]
+	GasFlameFault, // [ no G/F fault, gas/flame fault ]
+	AirPressFault, // [ no AP fault, air pressure fault ]
+	WaterOverTemp, // [ no OvT fault, over-temperat. Fault]
+	Reserved6,
+	Reserved7 
+}
+
+struct AplicationSpecificFaults {
+	bool ServiceRequest = false; // [ clear/0, set/1] [service not req’d, service required]
+	bool StaLockoutReset = false; // [ remote reset disabled, rr enabled]
+	bool LowWaterPress = false; // [no WP fault, water pressure fault]
+	bool GasFlameFault = false; // [ no G/F fault, gas/flame fault ]
+	bool AirPressFault = false; // [ no AP fault, air pressure fault ]
+	bool WaterOverTemp = false; // [ no OvT fault, over-temperat. Fault]
+	bool Reserved6 = false;
+	bool Reserved7 = false;
+	uint8_t OEMdiagnosticCode = 0;
+}
+
 class OpenTherm
 {
 public:
@@ -163,6 +224,11 @@ public:
     float getModulation();
     float getPressure();
     unsigned char getFault();
+
+	//Class 1 : Control and Status Information
+
+
+
 
 private:
 	const int inPin;
